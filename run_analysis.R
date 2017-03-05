@@ -43,9 +43,9 @@ merged_data <- rbind(x_train, x_test)
 colnames(merged_data)<-(features$V2)
 
 # write table to hard disk. 
-write.csv(merged_data, "merged_data.csv")
+write.table(merged_data, "merged_data.txt", row.name=FALSE)
 
-message("Merged data frame (solution of part 1 and 4) is stored in the variable merged_data and written to merged_data.csv.")
+message("Merged data frame (solution of part 1 and 4) is stored in the variable merged_data and written to merged_data.txt.")
 
 # show merged_data in the viewer. 
 View(merged_data)
@@ -65,9 +65,9 @@ mean_stddev_column_indices <- grep("mean(Freq)?\\(\\)|std\\(\\)", names(merged_d
 mean_stddev_data <- merged_data[, mean_stddev_column_indices]
 
 # write table to hard disk. 
-write.csv(mean_stddev_data, "mean_stddev_data.csv")
+write.table(mean_stddev_data, "mean_stddev_data.txt", row.name=FALSE)
 
-message("Mean and standard deviation data frame (solution of part 2 and 4) is stored in the variable mean_stddev_data and written to mean_stddev_data.csv.")
+message("Mean and standard deviation data frame (solution of part 2 and 4) is stored in the variable mean_stddev_data and written to mean_stddev_data.txt.")
 
 # show mean_stddev_data in the viewer. 
 View(mean_stddev_data)
@@ -91,9 +91,9 @@ activity_dataframe <- data.frame("Activity" = activity_speaking);
 data_activities <- cbind(activity_dataframe, mean_stddev_data)
 
 # write table to hard disk. 
-write.csv(data_activities, "data_activities.csv")
+write.table(data_activities, "data_activities.txt", row.name=FALSE)
 
-message("Data frame with activities (solution of part 3 and 4) is stored in the variable data_activities and written to data_activities.csv.")
+message("Data frame with activities (solution of part 3 and 4) is stored in the variable data_activities and written to data_activities.txt.")
 
 # show data_activities in the viewer. 
 View(data_activities)
@@ -111,9 +111,9 @@ data_activities_table <- data.table(data_activities)
 mean_by_activity <- data_activities_table[, lapply(.SD, mean), by="Activity" ]
 
 # write table to hard disk. 
-write.csv(mean_by_activity, "mean_by_activity.csv")
+write.table(mean_by_activity, "mean_by_activity.txt", row.name=FALSE)
 
-message("Data frame with activities (solution of part 5) is stored in the variable mean_by_activity and written to mean_by_activity.csv.")
+message("Data frame with activities (solution of part 5) is stored in the variable mean_by_activity and written to mean_by_activity.txt.")
 
 # show data_activities in the viewer. 
 View(mean_by_activity)

@@ -24,7 +24,7 @@ mean_by_activity: means of all columns grouped by activity (solution to step 5).
 
 files: 
 getdata_dataset.zip: raw data set, downloaded from internet. 
-merged_data.csv: writeout of merged_data (solution to step 1 and 4). 
-mean_stddev_data.csv: writeout of mean_stddev_data (solution to step 2 and 4)
-data_activities.csv: writeout of data_activities (solution to step 3 and 4)
-mean_by_activity.csv: writeout of mean_by_activity (solution to step 5)
+merged_data.txt: writeout of merged_data (solution to step 1 and 4). 
+mean_stddev_data.txt: writeout of mean_stddev_data (solution to step 2 and 4)
+data_activities.txt: writeout of data_activities (solution to step 3 and 4)
+mean_by_activity.txt: writeout of mean_by_activity (solution to step 5)
