@@ -30,6 +30,10 @@ y_test <- read.table(unz("./getdata_dataset.zip", "UCI HAR Dataset/test/y_test.t
 x_train <- read.table(unz("./getdata_dataset.zip", "UCI HAR Dataset/train/X_train.txt"))
 x_test <- read.table(unz("./getdata_dataset.zip", "UCI HAR Dataset/test/X_test.txt"))
 
+# subject contains
+subject_train <- read.table(unz("./getdata_dataset.zip", "UCI HAR Dataset/train/subject_train.txt"))
+subject_test <- read.table(unz("./getdata_dataset.zip", "UCI HAR Dataset/test/subject_test.txt"))
+
 ##############################
 # Merge train and test data. #
 ##############################
@@ -42,10 +46,7 @@ merged_data <- rbind(x_train, x_test)
 # set column names for the x data sets according to features.txt second column (V2)
 colnames(merged_data)<-(features$V2)
 
-# write table to hard disk. 
-write.table(merged_data, "merged_data.txt", row.name=FALSE)
-
-message("Merged data frame (solution of part 1 and 4) is stored in the variable merged_data and written to merged_data.txt.")
+message("Merged data frame (solution of part 1 and 4) is stored in the variable merged_data.")
 
 # show merged_data in the viewer. 
 View(merged_data)
@@ -64,19 +65,19 @@ mean_stddev_column_indices <- grep("mean(Freq)?\\(\\)|std\\(\\)", names(merged_d
 # Extract all mean and standard deviation data from the merged data set. 
 mean_stddev_data <- merged_data[, mean_stddev_column_indices]
 
-# write table to hard disk. 
-write.table(mean_stddev_data, "mean_stddev_data.txt", row.name=FALSE)
-
-message("Mean and standard deviation data frame (solution of part 2 and 4) is stored in the variable mean_stddev_data and written to mean_stddev_data.txt.")
+message("Mean and standard deviation data frame (solution of part 2 and 4) is stored in the variable mean_stddev_data.")
 
 # show mean_stddev_data in the viewer. 
 View(mean_stddev_data)
 
-################################################
-# Add a column for activities (speaking names) #
-################################################
+##########################################################
+# Add a column for subject and activity (speaking names) #
+##########################################################
 
-message("Creating data frame with activities...")
+message("Creating data frame with subjects and activities...")
+
+# Combine subject for train and test
+subject_merged <- rbind(subject_train, subject_test)
 
 # Combine y for train and test
 y_merged <- rbind(y_train, y_test)
@@ -84,36 +85,33 @@ y_merged <- rbind(y_train, y_test)
 # Convert y tables to speaking names
 activity_speaking <- activities[y_merged$V1, 2]
 
-# Put speaking names into a data frame
-activity_dataframe <- data.frame("Activity" = activity_speaking);
+# Put subject ID and speaking names into a data frame
+add_columns_dataframe <- data.frame("Subject" = subject_merged$V1, "Activity" = activity_speaking);
 
 # Merge the activities into the data set
-data_activities <- cbind(activity_dataframe, mean_stddev_data)
+data_subject_activities <- cbind(add_columns_dataframe, mean_stddev_data)
 
-# write table to hard disk. 
-write.table(data_activities, "data_activities.txt", row.name=FALSE)
+message("Data frame with activities (solution of part 3 and 4) is stored in the variable data_subject_activities.")
 
-message("Data frame with activities (solution of part 3 and 4) is stored in the variable data_activities and written to data_activities.txt.")
+# show data_subject_activities in the viewer. 
+View(data_subject_activities)
 
-# show data_activities in the viewer. 
-View(data_activities)
-
-#########################
-# Summarize by activity #
-#########################
+#####################################
+# Summarize by subject and activity #
+#####################################
 
 message("Creating mean-by-activity data frame...")
 
 # Create a data table from the previous result. 
-data_activities_table <- data.table(data_activities)
+data_subject_activities_table <- data.table(data_subject_activities)
 
 # Compute the means of all columns grouped by activity
-mean_by_activity <- data_activities_table[, lapply(.SD, mean), by="Activity" ]
+mean_by_subject_activity <- data_subject_activities_table[, lapply(.SD, mean), by=c("Subject", "Activity") ]
 
 # write table to hard disk. 
-write.table(mean_by_activity, "mean_by_activity.txt", row.name=FALSE)
+write.table(mean_by_subject_activity, "mean_by_subject_activity.txt", row.name=FALSE)
 
-message("Data frame with activities (solution of part 5) is stored in the variable mean_by_activity and written to mean_by_activity.txt.")
+message("Data frame with activities (solution of part 5) is stored in the variable mean_by_subject_activity and written to mean_by_subject_activity")
 
-# show data_activities in the viewer. 
-View(mean_by_activity)
+# show mean_by_subject_activity in the viewer. 
+View(mean_by_subject_activity)
