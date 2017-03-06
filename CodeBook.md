@@ -11,6 +11,7 @@ This document describes the variables and actions of run_analysis.R.
 - fileUrl: contains the URL to the .zip file on the internet. 
 - dateDownloaded: contains the date on which the file was downloaded. 
 - features: contains the raw data from features.txt. 
+
 ###Read out the relevant files
 - activities: contains the raw data from activity_labels.txt.
 - y_train: contains the raw data from y_train.txt.
@@ -19,6 +20,7 @@ This document describes the variables and actions of run_analysis.R.
 - x_test: contains the raw data from x_test.txt. 
 - subject_train: contains the raw data from subject_train.txt.
 - subject_test: contains the raw data from subject_test.txt.
+
 ###Merge train and test data
 - subject_merged: contains the merged data of subject_train and subject_test. 
 - merged_data: contains the merged and labeled data of x_train and x_test (solution to step 1 and 4). 
@@ -28,6 +30,7 @@ This document describes the variables and actions of run_analysis.R.
 - activity_speaking: version of y_merged converted to speaking names. 
 - add_columns_dataframe: dataframe of subject_merge and activity_speaking.
 - data_subject_activities: combination of data frames add_columns_dataframe and mean_stddev_data (solution to step 3 and 4). 
+
 ###Summarize by subject and activity 
 - data_subject_activities_table: data table formatted version of data_subject_activities. 
 - mean_by_subject_activity: means of all columns grouped by subject and activity (solution to step 5). 
